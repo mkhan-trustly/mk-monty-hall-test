@@ -2,7 +2,8 @@ package se.comhem.test.montyhall.service;
 
 import lombok.extern.log4j.Log4j2;
 import se.comhem.test.montyhall.model.Door;
-import se.comhem.test.montyhall.model.PlayStrategy;
+import se.comhem.test.montyhall.model.GameLog;
+import se.comhem.test.montyhall.model.PlayingStrategy;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -70,33 +71,38 @@ public class GameSession implements Game {
         }
 
         previousDoor.unmarkAsChosen();
-        log.debug("Player opted to switch boxes from {} to {}", previousDoor.getId(), nextDoor.getId());
+        log.debug("Player opted to switch doors from {} to {}", previousDoor.getDisplayName(), nextDoor.getDisplayName());
         return nextDoor.registerSelectedByPlayer();
     }
 
-    public PlayStrategy simulate() {
-        log.debug("Game starts here...");
+    public GameLog simulate(PlayingStrategy playingStrategy) {
+        GameLog gameLog = new GameLog();
+        gameLog.setPlayingStrategy(playingStrategy);
+        log.debug("Game starts here, strategy opted {}", playingStrategy);
+
         Door playersDoor = selectRandomDoor().registerSelectedByPlayer();
-        log.debug("Player selected [Door {}]", playersDoor.getId());
+        gameLog.setPlayerFirstChoice(playersDoor.getDisplayName());
+        log.debug("Player selected {}", playersDoor.getDisplayName());
+
         Door hostDoor = openDoorForHost().open();
-        log.debug("Host opted to open [Door {}]", hostDoor.getId());
+        gameLog.setHostDoor(hostDoor.getDisplayName());
+        log.debug("Host opted to open {}", hostDoor.getDisplayName());
 
         Door remainingDoor = getTheLastDoor();
-        log.debug("[Door {}] is the last door left", remainingDoor.getId());
+        gameLog.setRemainingDoor(remainingDoor.getDisplayName());
+        log.debug("{} is the last door left", remainingDoor.getDisplayName());
 
         if (remainingDoor.equals(hostDoor) || remainingDoor.equals(playersDoor)) {
             throw new IllegalStateException("Remaining door cannot be hostDoor or playerDoor");
         }
 
-        log.debug("Player has won the deal (without switch):> {}", playersDoor.hasWinningDeal());
+        Door playerFinalChoice = playingStrategy == PlayingStrategy.STICK_TO_INITIAL_DOOR
+                ? playersDoor : switchToDoor(remainingDoor);
+        gameLog.setPlayerFinalChoice(playerFinalChoice.getDisplayName());
+        log.debug("Won the deal ({})? {}", playingStrategy, playerFinalChoice.hasWinningDeal());
 
-        // For the purpose of statistics we mock both the cases
-        Door playersNewDoor = switchToDoor(remainingDoor);
-
-        log.debug("Player has won the deal (after switching):> {}", playersNewDoor.hasWinningDeal());
-        return playersNewDoor.hasWinningDeal() ?
-                PlayStrategy.SWITCHING_DOOR :
-                PlayStrategy.STICK_TO_ORIGINAL_DOOR;
+        gameLog.setWinningDeal(playerFinalChoice.hasWinningDeal());
+        return gameLog;
     }
 
     public Door getWinningDoor() {

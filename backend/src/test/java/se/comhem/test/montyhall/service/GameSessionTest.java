@@ -4,10 +4,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.comhem.test.montyhall.model.Door;
-import se.comhem.test.montyhall.model.PlayStrategy;
+import se.comhem.test.montyhall.model.GameLog;
+import se.comhem.test.montyhall.model.PlayingStrategy;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameSessionTest {
 
@@ -89,8 +90,18 @@ public class GameSessionTest {
     }
 
     @Test
-    public void testSimulate() {
-        PlayStrategy strategy = game.simulate();
-        assertThat(strategy).isNotNull();
+    public void testSimulate_stick_to_initial_door() {
+        GameLog gameLog = game.simulate(PlayingStrategy.STICK_TO_INITIAL_DOOR);
+        assertThat(gameLog).isNotNull();
+        assertEquals(gameLog.getPlayerFirstChoice(), gameLog.getPlayerFinalChoice());
+        assertEquals(gameLog.getPlayingStrategy(), PlayingStrategy.STICK_TO_INITIAL_DOOR);
+    }
+
+    @Test
+    public void testSimulate_switch_door() {
+        GameLog gameLog = game.simulate(PlayingStrategy.SWITCH_DOOR);
+        assertThat(gameLog).isNotNull();
+        assertNotEquals(gameLog.getPlayerFirstChoice(), gameLog.getPlayerFinalChoice());
+        assertEquals(gameLog.getPlayingStrategy(), PlayingStrategy.SWITCH_DOOR);
     }
 }

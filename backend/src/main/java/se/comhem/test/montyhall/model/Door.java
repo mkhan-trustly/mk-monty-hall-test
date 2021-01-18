@@ -25,6 +25,10 @@ public class Door {
         return this.id;
     }
 
+    public String getDisplayName() {
+        return "[Door " + this.id + "]";
+    }
+
     public Door replaceWithAWinningDeal() {
         this.deal = Deal.CAR;
         return this;

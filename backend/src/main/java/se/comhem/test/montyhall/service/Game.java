@@ -1,7 +1,8 @@
 package se.comhem.test.montyhall.service;
 
 import se.comhem.test.montyhall.model.Door;
-import se.comhem.test.montyhall.model.PlayStrategy;
+import se.comhem.test.montyhall.model.GameLog;
+import se.comhem.test.montyhall.model.PlayingStrategy;
 
 public interface Game {
 
@@ -11,5 +12,5 @@ public interface Game {
     Door getTheLastDoor();
     Door getPlayerSelectedDoor();
     Door switchToDoor(Door nextDoor);
-    PlayStrategy simulate();
+    GameLog simulate(PlayingStrategy playingStrategy);
 }

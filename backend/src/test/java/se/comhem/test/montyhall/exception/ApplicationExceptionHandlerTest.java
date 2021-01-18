@@ -3,7 +3,6 @@ package se.comhem.test.montyhall.exception;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
@@ -11,8 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
-import se.comhem.test.montyhall.model.PlayStrategy;
+import se.comhem.test.montyhall.model.PlayingStrategy;
 import se.comhem.test.montyhall.rest.GameSimulationController;
 import se.comhem.test.montyhall.rest.service.GameSimulationService;
 
@@ -39,7 +37,7 @@ public class ApplicationExceptionHandlerTest {
 
     @Test
     public void testSimulate_ShouldHandleRuntimeException() throws Exception {
-        Mockito.when(service.simulate(1, PlayStrategy.STICK_TO_ORIGINAL_DOOR))
+        Mockito.when(service.simulate(1, PlayingStrategy.STICK_TO_INITIAL_DOOR))
                 .thenThrow(new NullPointerException("x is null"));
 
         MockHttpServletResponse response = mvc.perform(get("/api/v1/game/simulate?iterations=1")).andReturn().getResponse();
