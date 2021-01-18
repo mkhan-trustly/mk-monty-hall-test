@@ -23,6 +23,7 @@ const MainContainer = () => {
       {hasErrors(gameResult) && <ErrorMsg gameResult={gameResult} />}
       {hasValidResult(gameResult) && <ResultsTable gameResult={gameResult} />}
       {hasValidResult(gameResult) && <PercentageBar elements={getGameResult()} />}
+      {hasValidResult(gameResult) && <p>*Won vs Lost in percentage</p>}
     </div>
   );
 }
