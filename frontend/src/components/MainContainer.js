@@ -1,6 +1,6 @@
 import GameForm from './FormSection/GameForm';
 import PercentageBar from './ResultsSection/PercentageBar';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { hasErrors, hasValidResult } from '../util/Helper';
 import ResultsTable from './ResultsSection/ResultsTable';
 import { ErrorMsg } from './ResultsSection/ErrorMsg';
