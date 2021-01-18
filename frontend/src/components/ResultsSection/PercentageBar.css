@@ -1,0 +1,28 @@
+.horizontal-bar-container {
+    height: 20px;
+    width: 50%;
+    background-color: #e0e0de;
+    margin-top: 20px;
+    margin-left: 0px;
+}
+
+.horizontal-bar-label {
+    display: table;
+    margin: auto;
+    color: white;
+}
+
+.horizontal-bar-filler {
+    height: 100%;
+    border-right: inherit;
+    text-align: right;
+    display: inline-block;
+}
+
+@media only screen and (max-width: 600px) {
+    .horizontal-bar-container {
+        height: 30px;
+        width: 80%;
+        vertical-align: middle;
+    }
+}

@@ -8,7 +8,7 @@
 
 .App-header {
   background-color: #222;
-  height: 250px;
+  height: 270px;
   padding: 10px;
   color: white;
 }
@@ -25,3 +25,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.main-container {
+  padding: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.error-msg {
+  color: red;
+}
+
+
+
+

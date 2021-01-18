@@ -1,0 +1,29 @@
+.simulate-button {
+    background-color: green;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 14px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.simulate-button:hover:enabled {opacity: 1}
+
+.drop-down-list {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.form-element {
+    height: 34px;
+    margin: 5px;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #555;
+    border: 1px solid #ccc;
+    width: 13em;
+}
