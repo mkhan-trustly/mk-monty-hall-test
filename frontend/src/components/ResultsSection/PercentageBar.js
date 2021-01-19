@@ -19,7 +19,7 @@ const PercentageBar = (props) => {
         const { percentage, bgColor, label } = element;
         return (
           <div key={index} className="horizontal-bar-filler"
-               style={{ width: percentage + '%', backgroundColor: bgColor }}>
+               style={{ width: `${percentage}%`, backgroundColor: bgColor }}>
             <span className="horizontal-bar-label">
               {label}
             </span>

@@ -12,7 +12,7 @@ const GameForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setDisabled(true);
-    axios.get(`api/v1/game/simulate?` + getAsQueryParams(event))
+    axios.get(`api/v1/game/simulate?${getAsQueryParams(event)}`)
       .then(res => {
         if (res.status === 200) {
           setGameResult(res.data);

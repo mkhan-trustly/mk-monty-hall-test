@@ -12,8 +12,8 @@ const MainContainer = () => {
   const getGameResult = () => {
     const { winsInPercent, lostInPercent } = gameResult;
 
-    const wins = { percentage: winsInPercent, bgColor: 'blue', label: 'Won ' + winsInPercent + '%' };
-    const lost = { percentage: lostInPercent, bgColor: 'red', label: 'Lost ' + lostInPercent + '%'}
+    const wins = { percentage: winsInPercent, bgColor: 'blue', label: `Won ${winsInPercent}%` };
+    const lost = { percentage: lostInPercent, bgColor: 'red', label: `Lost ${lostInPercent}%`}
     return [wins, lost];
   }
 
