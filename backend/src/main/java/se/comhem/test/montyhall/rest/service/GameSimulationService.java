@@ -16,8 +16,8 @@ public class GameSimulationService {
         simulationResult.setSelectedStrategy(playingStrategy);
         LongStream.range(0, iterations).forEach(session -> {
             var game = new GameSession();
-            var gameLog = game.simulate(playingStrategy);
-            simulationResult.registerResult(gameLog);
+            var gameOutcome = game.simulate(playingStrategy);
+            simulationResult.registerResult(gameOutcome);
         });
         return simulationResult;
     }

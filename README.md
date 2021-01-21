@@ -45,6 +45,18 @@ Tjänsten levererar en simulationsrapport:
 }
 ```
 
+#### Exception hantering
+När applikation inträffar oväntat exception, man får en error respons
+```
+{
+    timestamp: "2021-01-21T09:47:58.37381",
+    status: 500,
+    error: "Internal Server Error",
+    message: "Failed to fetch the data",
+    path: "/api/v1/game/simulate"
+}
+```
+
 #### Test
 ```
 GameSessionTest.java

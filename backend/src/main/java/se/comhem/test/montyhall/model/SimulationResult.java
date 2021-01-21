@@ -12,8 +12,8 @@ public class SimulationResult {
 
     private long won;
 
-    public void registerResult(GameLog gameLog) {
-        if (gameLog.isWinningDeal()) {
+    public void registerResult(GameOutcome gameOutcome) {
+        if (gameOutcome == GameOutcome.WON) {
             won++;
         }
     }

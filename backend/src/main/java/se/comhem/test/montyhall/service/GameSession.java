@@ -2,7 +2,7 @@ package se.comhem.test.montyhall.service;
 
 import lombok.extern.log4j.Log4j2;
 import se.comhem.test.montyhall.model.Door;
-import se.comhem.test.montyhall.model.GameLog;
+import se.comhem.test.montyhall.model.GameOutcome;
 import se.comhem.test.montyhall.model.PlayingStrategy;
 
 import java.util.Arrays;
@@ -75,21 +75,17 @@ public class GameSession implements Game {
         return nextDoor.registerSelectedByPlayer();
     }
 
-    public GameLog simulate(PlayingStrategy playingStrategy) {
-        GameLog gameLog = new GameLog();
-        gameLog.setPlayingStrategy(playingStrategy);
+    @Override
+    public GameOutcome simulate(PlayingStrategy playingStrategy) {
         log.debug("Game starts here, strategy opted {}", playingStrategy);
 
         Door playersDoor = selectRandomDoor().registerSelectedByPlayer();
-        gameLog.setPlayerFirstChoice(playersDoor.getDisplayName());
         log.debug("Player selected {}", playersDoor.getDisplayName());
 
         Door hostDoor = openDoorForHost().open();
-        gameLog.setHostDoor(hostDoor.getDisplayName());
         log.debug("Host opted to open {}", hostDoor.getDisplayName());
 
         Door remainingDoor = getTheLastDoor();
-        gameLog.setRemainingDoor(remainingDoor.getDisplayName());
         log.debug("{} is the last door left", remainingDoor.getDisplayName());
 
         if (remainingDoor.equals(hostDoor) || remainingDoor.equals(playersDoor)) {
@@ -98,11 +94,9 @@ public class GameSession implements Game {
 
         Door playerFinalChoice = playingStrategy == PlayingStrategy.STICK_TO_INITIAL_DOOR
                 ? playersDoor : switchToDoor(remainingDoor);
-        gameLog.setPlayerFinalChoice(playerFinalChoice.getDisplayName());
         log.debug("Won the deal ({})? {}", playingStrategy, playerFinalChoice.hasWinningDeal());
 
-        gameLog.setWinningDeal(playerFinalChoice.hasWinningDeal());
-        return gameLog;
+        return playerFinalChoice.hasWinningDeal() ? GameOutcome.WON : GameOutcome.LOST;
     }
 
     public Door getWinningDoor() {
